@@ -276,8 +276,6 @@ public class Test {
 	
 	// 8 Update a record for a given phone number
 	public static void updateRecord(ArrayList<Person> phonebook, long phoneNumber) {
-//		Scanner stringScanner = new Scanner(System.in);
-//		Scanner numberScanner = new Scanner(System.in);
 		Person targetRecord = new Person();
 		boolean match = false;
 		String successMessage = "Record has been updated:";

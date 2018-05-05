@@ -19,6 +19,13 @@ public class Person {
 		this.phone = phone;
 		this.address = address;
 	}
+	// No middle name constructor
+	public Person(String firstName, String lastName, long phone, Address address) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.address = address;
+	}
 
 	// Methods
 	// Return phone number as String
@@ -32,8 +39,23 @@ public class Person {
 	}
 	
 	public String toString() {
-		return this.firstName + " " + this.middleName + " " + this.lastName + ", " + this.address + ", " + returnPhoneNumberAsString(this.phone);
+		if (this.middleName == null) {
+			return this.firstName + " " + this.lastName + ", " + this.address + ", " + returnPhoneNumberAsString(this.phone);			
+		} else {
+			return this.firstName + " " + this.middleName + " " + this.lastName + ", " + this.address + ", " + returnPhoneNumberAsString(this.phone);
+		}
 	}
+	
+	public static Comparator<Person> personComparator = new Comparator<Person>() {
+		public int compare(Person p1, Person p2) {
+//			String person1WholeName = p1.getLastName() + p1.getFirstName() + p1.getMiddleName();
+//			String person2WholeName = p2.getLastName() + p2.getFirstName() + p2.getMiddleName();
+			String person1WholeName = p1.getLastName() + p1.getFirstName();
+			String person2WholeName = p2.getLastName() + p2.getFirstName();
+			
+			return person1WholeName.compareTo(person2WholeName);
+		}
+	};
 	
 	public String getFirstName() {
 		return firstName;
@@ -71,16 +93,6 @@ public class Person {
 
 	public void setAddress(Address address) {
 		this.address = address;
-	}
-	
-	public static Comparator<Person> personComparator = new Comparator<Person>() {
-		public int compare(Person p1, Person p2) {
-			String person1WholeName = p1.getLastName() + p1.getFirstName() + p1.getMiddleName();
-			String person2WholeName = p2.getLastName() + p2.getFirstName() + p2.getMiddleName();
-			
-			return person1WholeName.compareTo(person2WholeName);
-		}
-	};
-	
+	}	
 	
 }

@@ -11,7 +11,7 @@ public class Test {
 	public static void main(String[] args) {		
 		// Instantiate people 
 		Address address1 = new Address("114 Market St", "St. Louis", "MO", "63403");
-		Person person1 = new Person("John", "", "Doe", 2223334444L, address1);
+		Person person1 = new Person("John", "Doe", 2223334444L, address1);
 		
 		Address address2 = new Address("324 Main St", "St. Charles", "MO", "63303");
 		Person person2 = new Person("John", "E", "Doe", 3145556767L, address2);
@@ -34,6 +34,8 @@ public class Test {
 		phonebook.add(1, person2);
 		phonebook.add(2, person3);
 		phonebook.add(3, person4);
+		
+		printArrayList(phonebook);
 		
 		boolean runProgram = true;
 
@@ -133,33 +135,6 @@ public class Test {
 					Person newPerson = createNewRecord();
 					phonebook.add(phonebook.size(), newPerson);
 					System.out.println("New record added");
-					
-//					// Gather Person data
-//					System.out.println("Enter the first name");
-//					String newFirstName = input.next();
-//					System.out.println("Enter the middle name");
-//					String newMiddleName = input.next();
-//					System.out.println("Enter the last name");
-//					String newLastName = input.next();
-//					System.out.println("Enter the phone number");
-//					long newPhone = input.nextLong();
-//					input.nextLine();
-//					
-//					// Gather Address data
-//					System.out.println("Enter the street");
-//					String newStreet = input.nextLine();
-//					System.out.println("Enter the city");
-//					String newCity = input.next();
-//					System.out.println("Enter the state abbreviation");
-//					String newState = input.next();
-//					System.out.println("Enter the zip code");
-//					String newZip = input.next();
-//					
-//					Address newAddress = new Address(newStreet, newCity, newState, newZip);
-//					Person newPerson = new Person(newFirstName, newMiddleName, newLastName, newPhone, newAddress);
-//
-//					phonebook.add(phonebook.size(), newPerson);
-//					System.out.println("New record added");
 					break;	
 					
 				case 7: 
@@ -263,24 +238,45 @@ public class Test {
 	
 	// 6 Create new record
 	public static Person createNewRecord() {
+		// Get user input
 		System.out.println("Enter the new record with info separated by comma and space");
 		System.out.println("(ex: John Example Doe, 213 Test St, Springfield, IL, 63130, 3143334444)");
 		String userInput = input.nextLine();
-		System.out.println(userInput);
 		String[] userInputArray = userInput.split(", ");
 		
-		String firstName = userInputArray[0].split(" ")[0];
-		String middleName = userInputArray[0].split(" ")[1];
-		String lastName = userInputArray[0].split(" ")[2];
+		String[] names = userInputArray[0].split(" ");
+		
+		// Create the first, middle, and last name variables
+		boolean hasMiddleName = false;
+		String firstName = names[0];
+		String middleName = "";
+		String lastName = "";
+		if (names.length == 3) {
+			middleName = names[1];			
+			hasMiddleName = true;
+			lastName = names[2];
+		} else {
+			lastName = names[1];
+		}
+
+		// Create the phone and address variables
 		String street = userInputArray[1];
 		String city = userInputArray[2];
 		String state = userInputArray[3];
 		String zipCode = userInputArray[4];
 		String phone = userInputArray[5];
 		
+		// Create the address object
 		Address address = new Address(street, city, state, zipCode);
-		Person newPerson = new Person(firstName, middleName, lastName, Long.parseLong(phone), address);
-		return newPerson;
+		
+		// Create the person object using the appropriate constructor, and then return it
+		if (hasMiddleName) {
+			Person newPerson = new Person(firstName, middleName, lastName, Long.parseLong(phone), address);
+			return newPerson;
+		} else {
+			Person newPerson = new Person(firstName, lastName, Long.parseLong(phone), address);				
+			return newPerson;
+		}
 	}
 	
 	// 7 Delete record by phone number
@@ -404,7 +400,7 @@ public class Test {
 		}		
 	}
 
-	//Print each element in an ArrayList
+	//Print each element in an Person ArrayList
 	public static void printArrayList(ArrayList<Person> arrayToPrint) {
 		for (int i = 0; i < arrayToPrint.size(); i++) {
 			System.out.println(arrayToPrint.get(i));

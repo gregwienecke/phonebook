@@ -127,35 +127,39 @@ public class Test {
 					
 				case 6: 
 					// ADD NEW ENTRY
-					System.out.println("You chose " + answer + ": Add new entry");
+					System.out.println("You chose " + answer + ": Add new record");
 					System.out.println("");
 					
-					// Gather Person data
-					System.out.println("Enter the first name");
-					String newFirstName = input.next();
-					System.out.println("Enter the middle name");
-					String newMiddleName = input.next();
-					System.out.println("Enter the last name");
-					String newLastName = input.next();
-					System.out.println("Enter the phone number");
-					long newPhone = input.nextLong();
-					input.nextLine();
-					
-					// Gather Address data
-					System.out.println("Enter the street");
-					String newStreet = input.nextLine();
-					System.out.println("Enter the city");
-					String newCity = input.next();
-					System.out.println("Enter the state abbreviation");
-					String newState = input.next();
-					System.out.println("Enter the zip code");
-					String newZip = input.next();
-					
-					Address newAddress = new Address(newStreet, newCity, newState, newZip);
-					Person newPerson = new Person(newFirstName, newMiddleName, newLastName, newPhone, newAddress);
-
+					Person newPerson = createNewRecord();
 					phonebook.add(phonebook.size(), newPerson);
 					System.out.println("New record added");
+					
+//					// Gather Person data
+//					System.out.println("Enter the first name");
+//					String newFirstName = input.next();
+//					System.out.println("Enter the middle name");
+//					String newMiddleName = input.next();
+//					System.out.println("Enter the last name");
+//					String newLastName = input.next();
+//					System.out.println("Enter the phone number");
+//					long newPhone = input.nextLong();
+//					input.nextLine();
+//					
+//					// Gather Address data
+//					System.out.println("Enter the street");
+//					String newStreet = input.nextLine();
+//					System.out.println("Enter the city");
+//					String newCity = input.next();
+//					System.out.println("Enter the state abbreviation");
+//					String newState = input.next();
+//					System.out.println("Enter the zip code");
+//					String newZip = input.next();
+//					
+//					Address newAddress = new Address(newStreet, newCity, newState, newZip);
+//					Person newPerson = new Person(newFirstName, newMiddleName, newLastName, newPhone, newAddress);
+//
+//					phonebook.add(phonebook.size(), newPerson);
+//					System.out.println("New record added");
 					break;	
 					
 				case 7: 
@@ -255,6 +259,28 @@ public class Test {
 		if (!foundMatch) {
 			System.out.println("That number is not in the phone book");
 		}
+	}
+	
+	// 6 Create new record
+	public static Person createNewRecord() {
+		System.out.println("Enter the new record with info separated by comma and space");
+		System.out.println("(ex: John Example Doe, 213 Test St, Springfield, IL, 63130, 3143334444)");
+		String userInput = input.nextLine();
+		System.out.println(userInput);
+		String[] userInputArray = userInput.split(", ");
+		
+		String firstName = userInputArray[0].split(" ")[0];
+		String middleName = userInputArray[0].split(" ")[1];
+		String lastName = userInputArray[0].split(" ")[2];
+		String street = userInputArray[1];
+		String city = userInputArray[2];
+		String state = userInputArray[3];
+		String zipCode = userInputArray[4];
+		String phone = userInputArray[5];
+		
+		Address address = new Address(street, city, state, zipCode);
+		Person newPerson = new Person(firstName, middleName, lastName, Long.parseLong(phone), address);
+		return newPerson;
 	}
 	
 	// 7 Delete record by phone number

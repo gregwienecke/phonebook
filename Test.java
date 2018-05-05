@@ -161,7 +161,10 @@ public class Test {
 					// SHOW ALL RECORDS
 					System.out.println("You chose " + answer  + ": Show all records");
 					System.out.println("");
-					showAllRecords(phonebook);
+					sort(phonebook);
+					for (Person per : phonebook) {
+						System.out.println(per);
+					}
 					System.out.println("");
 					break;	
 					
@@ -387,17 +390,9 @@ public class Test {
 	}
 	
 	
-	// 9 Print all records in a Person ArrayList
-	public static void showAllRecords(ArrayList<Person> phonebook) {
-		sort(phonebook);
-	}
-	
-	// Sort (Helper method for 9, print all records in asc order)
+	// 9 Print all records SORTED in a Person ArrayList
 	public static void sort(ArrayList<Person> people) {
-		Collections.sort(people, Person.personComparator);
-		for (Person per : people) {
-			System.out.println(per);
-		}		
+		Collections.sort(people, Person.personComparator);		
 	}
 
 	//Print each element in an Person ArrayList
